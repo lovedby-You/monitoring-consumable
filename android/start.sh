@@ -16,7 +16,7 @@ if ! curl -s http://localhost:4000/api/health > /dev/null; then
   exit 1
 fi
 
-TUNNEL_CONF="$HOME/.consumbale/tunnel.yml"
+TUNNEL_CONF="$HOME/.consumable/tunnel.yml"
 URL=""
 
 if [ -f "$TUNNEL_CONF" ]; then

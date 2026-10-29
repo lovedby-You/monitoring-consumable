@@ -136,13 +136,9 @@ npm run users:reset
 
 echo "== 5/5 Menyiapkan tampilan web =="
 
-if [ ! -f "$ROOT/frontend/dist/index.html" ]; then
-  cd "$ROOT/frontend"
-  npm install
-  npm run build
-else
-  echo "Tampilan (frontend/dist) sudah ada."
-fi
+cd "$ROOT/frontend"
+npm install
+npm run build
 
 stop_db
 
