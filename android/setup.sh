@@ -11,7 +11,7 @@ if ! proot-distro login ubuntu -- true > /dev/null 2>&1; then
   proot-distro install ubuntu
 fi
 
-proot-distro login ubuntu --bind "$PROJECT:/root/consumable-wms" -- bash /root/consumable-wms/android/setup-inside.sh
+proot-distro login ubuntu --bind "$PROJECT:/root/monitoring-consumable" -- bash /root/monitoring-consumable/android/setup-inside.sh
 
 echo ""
 echo "Selanjutnya jalankan: bash $PROJECT/android/start.sh"
