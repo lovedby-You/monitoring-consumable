@@ -1,0 +1,6 @@
+# Skrip shell harus selalu berakhiran baris gaya Linux (LF), kalau tidak akan error di Android
+* text=auto
+*.sh text eol=lf
+*.sql text eol=lf
+*.woff binary
+*.woff2 binary

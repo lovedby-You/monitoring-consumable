@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Unit {
+  PCS
+  ROLL
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique @db.VarChar(50)
+  name         String     @db.VarChar(100)
+  passwordHash String     @db.VarChar(100)
+  role         Role       @default(USER)
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  stockIns     StockIn[]
+  stockOuts    StockOut[]
+}
+
+// Master consumable: hanya 5 data dasar. Metrik lain dihitung otomatis di Monitoring.
+model Consumable {
+  id           Int        @id @default(autoincrement())
+  code         String     @unique @db.VarChar(40)
+  name         String     @db.VarChar(120)
+  unit         Unit
+  initialStock Int        @default(0)
+  unitCost     Decimal    @default(0) @db.Decimal(14, 2)
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  stockIns     StockIn[]
+  stockOuts    StockOut[]
+}
+
+// Penerimaan barang: tanggal, nama, no PO, jenis consumable, quantity
+model StockIn {
+  id           Int        @id @default(autoincrement())
+  date         DateTime   @db.Date
+  name         String     @db.VarChar(150)
+  poNumber     String?    @db.VarChar(80)
+  consumableId Int
+  qty          Int
+  createdById  Int?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  consumable   Consumable @relation(fields: [consumableId], references: [id], onDelete: Restrict)
+  createdBy    User?      @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([consumableId, date])
+  @@index([date])
+}
+
+// Pengambilan barang: tanggal, nama, jenis consumable, quantity
+model StockOut {
+  id           Int        @id @default(autoincrement())
+  date         DateTime   @db.Date
+  name         String     @db.VarChar(150)
+  consumableId Int
+  qty          Int
+  createdById  Int?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  consumable   Consumable @relation(fields: [consumableId], references: [id], onDelete: Restrict)
+  createdBy    User?      @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([consumableId, date])
+  @@index([date])
+}
+
+// Total order per hari (tanggal + total order)
+model DailyOrder {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @unique @db.Date
+  totalOrders Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
