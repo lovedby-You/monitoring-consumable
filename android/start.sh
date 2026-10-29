@@ -5,7 +5,7 @@ PROJECT="$(cd "$(dirname "$0")/.." && pwd)"
 termux-wake-lock
 
 echo "Menyalakan database dan server..."
-nohup proot-distro login ubuntu --bind "$PROJECT:/root/consumable-wms" -- bash /root/consumable-wms/android/run-inside.sh > "$HOME/server.log" 2>&1 &
+nohup proot-distro login ubuntu --bind "$PROJECT:/root/monitoring-consumable" -- bash /root/monitoring-consumable/android/run-inside.sh > "$HOME/server.log" 2>&1 &
 
 for _ in $(seq 1 60); do
   curl -s http://localhost:4000/api/health > /dev/null && break
@@ -16,7 +16,7 @@ if ! curl -s http://localhost:4000/api/health > /dev/null; then
   exit 1
 fi
 
-TUNNEL_CONF="$HOME/.wms/tunnel.yml"
+TUNNEL_CONF="$HOME/.consumbale/tunnel.yml"
 URL=""
 
 if [ -f "$TUNNEL_CONF" ]; then

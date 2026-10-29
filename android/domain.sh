@@ -3,9 +3,9 @@
 # Syarat: domain sudah ditambahkan ke Cloudflare (status Active).
 set -e
 PROJECT="$(cd "$(dirname "$0")/.." && pwd)"
-CONF_DIR="$HOME/.wms"
+CONF_DIR="$HOME/.consumable"
 CONF="$CONF_DIR/tunnel.yml"
-NAME=wms
+NAME=consumable
 mkdir -p "$CONF_DIR"
 
 if [ -f "$CONF" ] && [ "$(grep -c 'hostname:' "$CONF")" -gt 1 ]; then

@@ -1,5 +1,3 @@
-#!/data/data/com.termux/files/usr/bin/bash
-# Pemasangan pertama kali di Termux. Pemakaian: bash ~/consumable-wms/android/setup.sh
 set -e
 PROJECT="$(cd "$(dirname "$0")/.." && pwd)"
 

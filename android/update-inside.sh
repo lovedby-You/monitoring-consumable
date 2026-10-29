@@ -1,7 +1,7 @@
 #!/bin/bash
 # Pembaruan setelah git pull. Dijalankan di dalam Ubuntu oleh update.sh.
 set -e
-ROOT=/root/consumable-wms
+ROOT=/root/moitoring-consumable
 source "$ROOT/android/common.sh"
 
 start_db

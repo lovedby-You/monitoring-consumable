@@ -1,7 +1,7 @@
 #!/bin/bash
 # Pemasangan pertama kali. Dijalankan di dalam Ubuntu oleh setup.sh. Aman dijalankan ulang.
 set -e
-ROOT=/root/consumable-wms
+ROOT=/root/monitoring-consumable
 source "$ROOT/android/common.sh"
 export DEBIAN_FRONTEND=noninteractive
 

@@ -1,10 +1,6 @@
-#!/data/data/com.termux/files/usr/bin/bash
-# Menambah situs/aplikasi lain ke tunnel yang sama (satu HP, banyak alamat).
-# Pemakaian: bash ~/consumable-wms/android/add-site.sh toko.domainanda.com 4001
-# Syarat: domain.sh sudah pernah dijalankan.
 set -e
-CONF="$HOME/.wms/tunnel.yml"
-NAME=wms
+CONF="$HOME/.consumable/tunnel.yml"
+NAME=consumable
 
 HOST=$(echo "$1" | tr 'A-Z' 'a-z' | sed 's#^https\{0,1\}://##; s#/.*$##')
 PORT="$2"
@@ -35,7 +31,6 @@ if grep -q "localhost:$PORT\$" "$CONF"; then
   exit 1
 fi
 
-# sisipkan aturan baru tepat sebelum aturan penutup (http_status:404)
 TMP=$(mktemp)
 awk -v host="$HOST" -v port="$PORT" '
   /^  - service: http_status:404/ { print "  - hostname: " host; print "    service: http://localhost:" port }

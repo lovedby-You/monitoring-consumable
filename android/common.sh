@@ -1,6 +1,3 @@
-# shellcheck shell=bash
-# Fungsi bersama. Dipakai oleh skrip yang berjalan DI DALAM Ubuntu.
-
 start_db() {
   mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
   if ! mariadb -e "SELECT 1" > /dev/null 2>&1; then
